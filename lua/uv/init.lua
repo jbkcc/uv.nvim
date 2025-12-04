@@ -121,11 +121,11 @@ end
 -- Virtual environment activation
 ---@param venv_path string
 function M.activate_venv(venv_path)
-	-- For Mac, run the source command to apply to the current shell (kept for reference)
-	local _command = "source " .. venv_path .. "/bin/activate"
+  local bin_dir = vim.fn.has('win32') and 'Scripts' or 'bin'
+  local pathsep = vim.fn.has('win32') and ';' or ':'
 	-- Set environment variables for the current Neovim instance
 	vim.env.VIRTUAL_ENV = venv_path
-	vim.env.PATH = venv_path .. "/bin:" .. vim.env.PATH
+	vim.env.PATH = venv_path .. "/" .. bin_dir .. pathsep .. vim.env.PATH
 	-- Notify user
 	if M.config.notify_activate_venv then
 		vim.notify("Activated virtual environment: " .. venv_path, vim.log.levels.INFO)
