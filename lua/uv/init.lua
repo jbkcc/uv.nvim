@@ -121,8 +121,8 @@ end
 -- Virtual environment activation
 ---@param venv_path string
 function M.activate_venv(venv_path)
-  local bin_dir = vim.fn.has('win32') and 'Scripts' or 'bin'
-  local pathsep = vim.fn.has('win32') and ';' or ':'
+  local bin_dir = vim.fn.has('win32') ~= 0 and 'Scripts' or 'bin'
+  local pathsep = vim.fn.has('win32') ~= 0 and ';' or ':'
 	-- Set environment variables for the current Neovim instance
 	vim.env.VIRTUAL_ENV = venv_path
 	vim.env.PATH = venv_path .. "/" .. bin_dir .. pathsep .. vim.env.PATH
